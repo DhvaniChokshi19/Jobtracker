@@ -1,7 +1,7 @@
 "use client";
 import { signOut} from '@/lib/auth/auth-client';
 import { DropdownMenuItem } from "./ui/dropdown-menu";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function SignOutButton() {
     const router = useRouter();

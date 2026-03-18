@@ -1,3 +1,5 @@
+"use cache";
+
 import KanbanBoard from "@/components/kanban-board";
 import { getSession } from "@/lib/auth/auth";
 import connectDB from "@/lib/db";
@@ -15,17 +17,20 @@ export default async function Dashboard(){
         name:"Job Hunt",
     }).populate({
         path:"columns",
-    })
+        populate:{
+            path:"jobApplications",
+        },
+    });
+    if(!board) return null;
     return (
     <div className="min-h-screen bg-white">
         <div className="container mx-auto p-6">
             <div className="mb-6">
-                <h1 className="text-3xl font-bold text-black">Job Board</h1>
+                <h1 className="text-3xl font-bold text-black">Job Hunt</h1>
                 <p className="text-gray-600">Track your Job Applications</p>
             </div>
             <KanbanBoard
-            board={JSON.parse(JSON.stringify(board))} 
-            userId= {session.user.id}></KanbanBoard>
+              board={JSON.parse(JSON.stringify(board))} userId= {session.user.id}></KanbanBoard>
         </div>
     </div>
     );
